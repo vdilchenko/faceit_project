@@ -47,3 +47,7 @@ def create_plot(stats):
     graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
 
     return graphJSON
+
+
+if __name__ == "__main__":
+    app.run()
