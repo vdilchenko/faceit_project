@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FACEIT STATISTICS</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+</head>
+<body>
+   <h1>WELCOME TO FACEIT STATISTICS BY ME</h1>
+   <form method="post">
+    <div class="form-group">
+        <label for="nickname">Nickname</label>
+        <input type="text" name="nickname"
+               placeholder="Print nickname" class="form-control"
+               required></input>
+        <label for="limit">Limit of games</label>
+        <input type="text" name="limit"
+               placeholder="Print number of games" class="form-control"></input>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    <div class="chart" id="bargraph">
+        <script>
+            var graphs = {{plot | safe}};
+            Plotly.plot('bargraph',graphs,{});
+        </script>
+    </div>
+</form>
+</body>
+</html>
