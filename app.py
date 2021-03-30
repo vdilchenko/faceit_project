@@ -18,18 +18,17 @@ def post_form():
     return render_template("index.html")
 
 
-def accum_kd(stats):
-    kd = 0
-    count = 1
-    all_kd = []
-    for kills, deaths in zip(stats['Kills'][::-1], stats['Deaths'][::-1]):
-        kd += kills/deaths
-        all_kd.append(kd / count)
-        count += 1
-    return all_kd
+def window_mean():
+    series = []
+    def averager(kills, deaths):
+        series.append(kills / deaths)
+        total = sum(series)
+        return total / len(series)
+    return averager
 
 
 def create_plot(stats):
+    averager = window_mean()
     data = [
         go.Scatter(
             x=[x for x in range(len(stats['Kills']))],
@@ -39,7 +38,7 @@ def create_plot(stats):
         ),
         go.Scatter(
             x=[x for x in range(len(stats['Kills']))],
-            y=accum_kd(stats),
+            y=[averager(k, d) for k, d in zip(stats['Kills'], stats['Deaths'])],
             hovertext='KD',
             name='AVG KD'
         )
